@@ -149,7 +149,7 @@ As cartas do computador são${cartasSorteadasString("computador")}. A pontuaçã
 ${(confereGanhador(pontuacaoUsuario(usuarioCartas), pontuacaoComputador(computadorCartas)))}`)
 }
 
-// Monstra todas cartas sorteadas em string
+// Mostra todas cartas sorteadas em string
 function cartasSorteadasString(usuarioOuComputador){
 
    if (usuarioOuComputador === "usuario"){
