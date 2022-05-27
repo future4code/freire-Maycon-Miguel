@@ -2,9 +2,9 @@
 function calculaNota(ex, p1, p2) {
   // Escreva seu código aqui
   
-  nota  = p1 + p2 + ex
+  const nota  = p1 + p2 + ex
   
-  media =  nota/3
+  const media =  nota/3
   
   if(media >= 9 ){
     return "A"
