@@ -1,0 +1,86 @@
+* {
+   padding: 15 ;
+   margin: 0; 
+   font-family:'Times New Roman', Times, serif;
+}
+
+ /* Parte de cima */
+
+header {
+    
+    background-color: rgb(201, 41, 129);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px;
+
+}
+
+
+nav {
+    padding: 120px;
+    background-color: rgb(247, 177, 226);
+    flex-grow: 1;
+    
+}
+
+section {
+    background-color: lightgreen;
+}
+
+main {
+    flex-grow: 1;
+}
+
+
+.container {
+    display: flex;
+    height: 80vh; 
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* rodape */
+
+footer {
+
+    background-color:rgb(201, 41, 129);
+    height: 40px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+footer h4 {
+
+    display: flex;
+
+    padding: 0 500px;
+}
+
+header {
+    flex-grow: 1;
+}
+.container {
+    flex-grow: 13;
+}
+
+/* fecho */
+main > div {
+    
+    background: rgba(255, 255, 255, 0.664);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+    height: 40%;
+
+}
+.container > main {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    justify-content: center;  
+}
