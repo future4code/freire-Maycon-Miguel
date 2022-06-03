@@ -1,0 +1,61 @@
+* {
+    padding: 15 ;
+    margin: 0; 
+    font-family:'Times New Roman', Times, serif;
+ }
+
+
+ /* inicio */
+
+ header {
+    
+    background-color:rgb(240, 174, 87);
+    height: 60px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px; 
+
+}
+
+/* main */
+
+main {
+
+    display: grid;
+    padding: 100px 50px;
+    height: 50px;
+
+}
+
+.imagemVideo{
+    background-color: black;
+    width: 200px;
+    height: 250px;
+
+}
+
+/* rodape */
+
+footer {
+    
+    background-color:rgb(240, 174, 87);
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+footer > h1 {
+
+    display: grid;
+    padding: 0 30px;
+}
+
+.container > main {
+
+    display: grid;
+
+
+} 
