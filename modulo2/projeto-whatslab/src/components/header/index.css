@@ -1,0 +1,23 @@
+/* parte de cima */
+
+* {
+
+    margin: 0;
+}
+
+h1{  
+   
+    margin: 0;
+    width: 100vw;
+    height: 10vh;
+    background-color: rgb(23, 94, 62);
+    margin-bottom: 20px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    color: white;
+}
+
+/* ------ */
