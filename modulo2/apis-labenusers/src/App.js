@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Home from './components/home/index'
-import Pages from './components/pages/index'
+import Cadastro from './components/cadastro/index'
 
 
-function App() {
+export default class App extends React.Component{
 
+  state = {
+    telaAtual : "home"
+  }
 
-  return (
+  mudarDePage = () => {
+    switch (this.state.telaAtual){
+
+      case "home":
+        return <Home irParaCadastro={this.irParaCadastro}/>
+      case "cadastro":
+        return <Cadastro irParaHome={this.irParaHome}/>
+      default:
+        return <div> Erro! Essa pagina não existe! </div>
+    }
+  }
+
+  irParaCadastro = () => {
+    this.setState({telaAtual: "cadastro"})
+  }
+
+  irParaHome = () => {
+    this.setState({telaAtual: "home"})
+  }
+
+  render () {  
+    return (
     <div className="App">
-        <h1> Funcionando 1 </h1>
-        <div><button> Trocar de Tela </button></div>
+        {this.mudarDePage()}
         
-        <div className='lista'>
-          <li>teste <span className='botao-x'>X</span></li>
-        </div>
-        <hr></hr>
-        <Home></Home>
-        <Pages></Pages>
     </div>
-  );
-}
+  
+  )}}
 
-export default App;
+
