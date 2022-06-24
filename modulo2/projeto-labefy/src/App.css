@@ -1,0 +1,14 @@
+
+*{
+    margin-left: 10px;
+}
+
+.botao-x {
+
+    color: red;
+    cursor: pointer;
+}
+
+.lista {
+    margin-top: 20px;
+}
