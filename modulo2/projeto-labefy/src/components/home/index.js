@@ -2,6 +2,8 @@ import React from 'react';
 import './index.css';
 import axios from "axios";
 import styled from 'styled-components';
+import logo from './img/logo.png';
+import lupa from './img/lupa.png';
 
 const CardUsuario = styled.div`
     bord: 1px solid black;
@@ -64,22 +66,38 @@ export default class Home extends React.Component {
         })
 
         return (
-            <div >
-                <div><button onClick={this.props.irParaCadastro}> Criar Playlist </button></div>
-                <h1> Tela Principal </h1>
-                {listaPlaylist}
-                <hr></hr>
-                <div>
-                    <h4>Procurar Playlist</h4>
-                    <input
-                        type="text"
-                        id="buscar-nome"
-                        name="buscar-nome"
-                        placeholder="Nome exato para buscar"
-                    ></input>
-                    <button>
-                        buscar
-                    </button>
+            <div>
+                <div className='mudarDeTela'>
+                    <button onClick={this.props.irParaCadastro}> Criar Playlist </button>
+                </div>
+        
+                <div className='logo'>
+                    
+
+                    <img src={logo}></img> 
+
+                    <div className='nome'>
+                        <h4>Labefy</h4> 
+                    </div>
+                </div>
+
+                <div className='pesquisa'>
+                    <div className='lupa'>
+                        <img src={lupa} ></img>
+                    </div>
+                        <input
+                            type="text"
+                            id="buscar-nome"
+                            name="buscar-nome"
+                            placeholder="Nome exato para buscar"
+                        ></input>
+                        
+                    <div className='playliste'>
+                        <h3>Playlist Disponível</h3>
+                        {listaPlaylist}
+                    </div>
+                    
+
                 </div>
             </div>
         )
