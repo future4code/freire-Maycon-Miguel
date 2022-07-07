@@ -1,19 +1,47 @@
 import Home from "./components/home";
-import styled from "styled-components";
+import Match from "./components/Match";
 import './index.css'
+import { useState } from "react";
 
-const Fundo = styled.div`
-
-
-`
 
 function App() {
+
+  const [tela , setTela] = useState("Home")
+
+  const irParaHome = () => {
+    setTela("Home")
+     }
+
+  const irParaMatch = () => {
+        setTela("Match")
+      }
+
+  const TelaAtual = () => {
+  
+    switch(tela){
+
+      case "Home":
+        return <Home
+           irParaMatch = {irParaMatch}
+        />
+        
+      case"Match":
+        return <Match
+           irParaHome = {irParaHome}
+        />
+
+      default:
+				return <div> Erro! Essa pagina não existe! </div>
+    }
+  
+
+  }
   return (
-    <Fundo>
+    <div>
       
-      <Home></Home>
+      {TelaAtual()}
  
-    </Fundo>
+    </div>
   );
 }
 
