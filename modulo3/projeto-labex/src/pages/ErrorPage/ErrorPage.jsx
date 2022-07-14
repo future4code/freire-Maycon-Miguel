@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import imgError from "../../assets/ErrorPage.webp";
 import {goToHomePage, goToVoltar} from '../../routes/coordinator';
 
 
 const DivErro = styled.div`
 
 .div-img-tela{
-  background-image: url(${imgError});
+
+  background-color: #f1b8c9;
   background-repeat: no-repeat;
   background-position: center;
   width: auto;

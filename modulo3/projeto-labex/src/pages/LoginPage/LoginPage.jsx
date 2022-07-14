@@ -1,41 +1,51 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import imgLoginPage from "../../assets/LoginPage.jpg";
-import {goToHomePage, goToVoltar, goToEntra} from '../../routes/coordinator';
-
-const DivLoginPage = styled.div`
-
-.div-img-tela{
-  background-image: url(${imgLoginPage});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: auto;
-  height: 100vh;
-}
-
-`
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { goToVoltar } from "../../routes/coordinator";
+import { Container, Titulo, InputTexto, Button } from "./styled";
+import { Login } from "../../hooks/Axios";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const onChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
 
   return (
-        <DivLoginPage> 
-          <div className='div-img-tela'>
+    <Container>
+      <Titulo>
+        <h1> LoginPage </h1>
+      </Titulo>
+      <InputTexto>
+        <input
+          type={"email"}
+          placeholder="E-mail"
+          value={email}
+          onChange={onChangeEmail}
+        ></input>
+      </InputTexto>
+      <InputTexto>
+        <input
+          type={"password"}
+          placeholder="Senha"
+          value={password}
+          onChange={onChangePassword}
+        ></input>
+      </InputTexto>
 
-            <h1>  LoginPage</h1>
-            <button onClick={() => goToHomePage(navigate)}> HomePage </button>
-            <button onClick={() => goToVoltar(navigate)}> voltar </button>
-            <button onClick={() => goToEntra(navigate)}> Entrar </button>
-
-          </div>
-
-        </DivLoginPage>
+      <Button>
+        <button onClick={() => goToVoltar(navigate)}> voltar </button>
+        <button onClick={() => Login(email, password)}> Entrar </button>
+      </Button>
+    </Container>
   );
-}
-
+};
 
 export default LoginPage;

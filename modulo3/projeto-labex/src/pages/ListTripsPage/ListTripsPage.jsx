@@ -1,39 +1,29 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import  imgListTripsPage from "../../assets/ListTripsPage.png";
+import {Container,ContainerPreto,Titulo} from './styled'
 import {goToHomePage, goToVoltar, goToApplicationFormPage} from '../../routes/coordinator';
-
-const DivListTripsPage = styled.div`
-
-.div-img-tela{
-  background-image: url(${imgListTripsPage});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: auto;
-  height: 100vh;
-}
-
-`
-
+import {GetTrips} from '../../hooks/Axios'
 
 const ListTripsPage = () => {
 
   const navigate = useNavigate()
-  
-    
-  return (
-        <DivListTripsPage> 
-          <div className='div-img-tela'>
 
-            <h1>  ListTripsPage</h1>
+
+  return (
+        <Container> 
+          <ContainerPreto>
+
+            <Titulo>
+            <h1> LISTA DE VIAGENS DISPONIVEIS </h1>
+            </Titulo>
+            
             <button onClick={() => goToHomePage(navigate)}> HomePage </button>
             <button onClick={() => goToVoltar(navigate)}> voltar </button>
-            <button onClick={() =>goToApplicationFormPage(navigate)}> inscreve-se </button>
-          </div>
-
-        </DivListTripsPage>
+            <button onClick={() => goToApplicationFormPage(navigate)}> inscreve-se </button>
+            <button onClick={() => GetTrips()}> ver lista </button>
+  
+          </ContainerPreto>
+        </Container>
   );
 }
 

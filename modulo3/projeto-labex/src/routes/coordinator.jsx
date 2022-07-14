@@ -1,5 +1,6 @@
 // HomePage []
 
+
 export const goToListTripsPage = (navigate) => {
     navigate("/ListTripsPage")
   }
