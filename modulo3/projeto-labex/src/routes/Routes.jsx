@@ -21,7 +21,6 @@ export const Router = () => {
             <Route path= "LoginPage" element = {<LoginPage/>} />
             <Route path= "TripDetailsPage" element = {<TripDetailsPage/>} />
             <Route path= "*" element = {<ErrorPage/>} />
-  
         </Routes>
       </BrowserRouter>
 

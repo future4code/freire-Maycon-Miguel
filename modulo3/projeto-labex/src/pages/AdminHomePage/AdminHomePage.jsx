@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import {goToTripDetailsPage, goToVoltar, goToHomePage, goToCreateTripPage} from '../../routes/coordinator';
 import {Container, Titulo, ContainerPreto, ContainerDetalhes} from './styled';
 import {DeleteTrip} from '../../hooks/Axios'
+import { ConfirmandoToken } from "../../components/ConfirmandoToken";
 
 
 const AdminHomePage = () => {
+
+  ConfirmandoToken()
   
   const navigate = useNavigate()
 

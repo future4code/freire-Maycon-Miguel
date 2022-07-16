@@ -33,6 +33,7 @@ const ApplicationFormPage = () => {
             <button onClick={() => goToVoltar(navigate)}> voltar </button>
             <button onClick={() => {alert("Formulario Enviado")}}> Enviar </button>
             <button onClick={() => {ApplytoTrip(id)}}> Ver se o formulario ta enviando </button>
+            
           </div>
 
         </DivApplicationFormPage>

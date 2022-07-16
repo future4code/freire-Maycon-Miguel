@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { goToVoltar } from "../../routes/coordinator";
+import { goToHomePage } from "../../routes/coordinator";
 import { Container, Titulo, InputTexto, Button } from "./styled";
 import { Login } from "../../hooks/Axios";
+import { ConfirmandoToken } from "../../components/ConfirmandoToken";
 
 const LoginPage = () => {
+
+  ConfirmandoToken()
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -41,8 +45,8 @@ const LoginPage = () => {
       </InputTexto>
 
       <Button>
-        <button onClick={() => goToVoltar(navigate)}> voltar </button>
-        <button onClick={() => Login(email, password)}> Entrar </button>
+        <button onClick={() => goToHomePage(navigate)}> voltar </button>
+        <button onClick={() => Login(email,password)} > Entrar </button>
       </Button>
     </Container>
   );

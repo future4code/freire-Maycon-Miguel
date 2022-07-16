@@ -109,13 +109,12 @@ export const DeleteTrip = (id) => {
 
   const token = window.localStorage.getItem("token")
 
-
   axios
     .delete(
       `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trips/${id}`,
       {
         headers: {
-          auth: token,
+          auth: token
         }
       }
     )
