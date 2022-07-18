@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { goToHomePage } from "../../routes/coordinator";
 import { Container, Titulo, InputTexto, Button } from "./styled";
 import { Login } from "../../hooks/Axios";
-import { ConfirmandoToken } from "../../components/ConfirmandoToken";
+import { LoginToken } from "../../components/LoginToken";
+import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 const LoginPage = () => {
 
-  ConfirmandoToken()
+  LoginToken()
 
   const navigate = useNavigate();
 
@@ -22,33 +23,49 @@ const LoginPage = () => {
     setEmail(event.target.value);
   };
 
-  return (
-    <Container>
-      <Titulo>
-        <h1> LoginPage </h1>
-      </Titulo>
-      <InputTexto>
-        <input
-          type={"email"}
-          placeholder="E-mail"
-          value={email}
-          onChange={onChangeEmail}
-        ></input>
-      </InputTexto>
-      <InputTexto>
-        <input
-          type={"password"}
-          placeholder="Senha"
-          value={password}
-          onChange={onChangePassword}
-        ></input>
-      </InputTexto>
+  const FazerLogin = (event) => {
 
-      <Button>
+    event.preventDefault()
+
+    Login(email,password)
+  }
+
+  return ( <div> 
+    <Container>
+    
+      <Titulo>
+        <h4> LOGIN </h4>
+      </Titulo>
+
+      <form onSubmit={FazerLogin}>
+        <InputTexto>
+          <input
+            type={"email"}
+            placeholder="E-mail"
+            value={email}
+         
+            onChange={onChangeEmail}
+          ></input>
+        </InputTexto>
+        <InputTexto>
+          <input
+            type={"password"}
+            placeholder="Senha"
+            value={password}
+            required
+            onChange={onChangePassword}
+          ></input>
+        </InputTexto>
+
+        <Button>
+        <button> Entrar </button>
         <button onClick={() => goToHomePage(navigate)}> voltar </button>
-        <button onClick={() => Login(email,password)} > Entrar </button>
-      </Button>
+        </Button>
+
+      </form>
     </Container>
+    <Footer></Footer>
+    </div>
   );
 };
 

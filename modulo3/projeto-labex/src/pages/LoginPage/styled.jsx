@@ -9,6 +9,7 @@ export const Container = styled.div`
     justify-content: center;
     flex-direction: column;
 
+
     background-image: url(${imgLoginPage});
     background-size: cover;
     background-repeat: no-repeat;
@@ -54,15 +55,27 @@ export const Button = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
-    width: 10vw;
-
+    flex-direction: center;
+    
     button {
+
         border: none;
         margin-left: 1vw;
         padding: 1.5vw;
         border-radius: 40px;
-        font-size: large;
-        cursor: pointer;   
+        font-size: 14px;
+        width: 10vw;
+
+        cursor: pointer;  
+        
     }
+
+    button:hover{
+        background-color: #ff6600b8;
+
+            color: #fff;
+   
+    }
+
+
 `

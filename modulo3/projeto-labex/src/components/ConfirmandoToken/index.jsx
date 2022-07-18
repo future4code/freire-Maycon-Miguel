@@ -1,7 +1,7 @@
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { goToEntra , goToLoginPage } from "../../routes/coordinator";
+import { goToLoginPage } from "../../routes/coordinator";
 
 
 export const ConfirmandoToken = () => {
@@ -14,9 +14,8 @@ export const ConfirmandoToken = () => {
 
     if(token === null){
       goToLoginPage(navigate)
-    } else{
-      goToEntra(navigate)
-    }
+    } 
+    
   },[])
 
 }

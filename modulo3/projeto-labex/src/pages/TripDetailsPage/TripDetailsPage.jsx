@@ -1,43 +1,120 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import  imgTripDetailsPage from "../../assets/TripDetailsPage.png";
 import {goToHomePage , goToVoltar} from '../../routes/coordinator';
-import {GetTripDetail, CreateTrip} from '../../hooks/Axios'
+import { GetTripsCompleto, DecideCandidate} from '../../hooks/Axios'
+import { ConfirmandoToken } from "../../components/ConfirmandoToken";
+import { Container, Titulo, ContainerPreto, ContainerScroll, ListCandidatos, CssButton } from "./styled";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Footer from '../../components/Footer';
 
-
-const DivTripDetailsPage = styled.div`
-
-.div-img-tela{
-  background-image: url(${imgTripDetailsPage});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: auto;
-  height: 100vh;
-}
-`
 const TripDetailsPage = () => {
+
+  ConfirmandoToken()
+
+  const token = window.localStorage.getItem('token')
+
+  const [canditados, setCanditatos] = useState([])
+  const [canditadosAprovados, setCanditatosAprovados] = useState([])
+
+  const GetTripDetail = (token, id) => {
+
+    console.log('O id esta chegando em ChamarGetTripDetail', id)
+      axios
+      .get(
+        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trip/${id}`,
+        {
+          headers: {
+            auth: token,
+          },
+        }
+      )
+      .then((response) => {
+        setCanditatos(response.data.trip.candidates)
+        setCanditatosAprovados(response.data.trip.approved)
+      })
+      .catch((err) => {
+  
+        console.log(err)
+      });
+      
+  };
+
+  const tripsList = GetTripsCompleto()
+
+  const [idViagem, setIdViagem] = useState("");
+
+  const onChangeId = (event) => {
+    const { name, value } = event.target;
+    setIdViagem({ [name]: value });
+  };
+
 
   const navigate = useNavigate()
 
-  // receve id e auth do email
-  const id = "OB43AXb1cSQ9sjSpVZ4S"
-  const auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ik9CNDNBWGIxY1NROXNqU3BWWjRTIiwiZW1haWwiOiJhc3Ryb2RldkBnbWFpbC5jb20uYnIiLCJpYXQiOjE2NTc4MDExNDJ9.dPQq6MG8cmvafGEgHsGNHg5SR4keDgV3x2elckqmVNU"
+
+
+  useEffect(() => {GetTripDetail( token, idViagem.id )},[idViagem])
+
+  
   
 
-  return (
-        <DivTripDetailsPage> 
+  console.log("canditados", canditados)
+  console.log("canditados Aprovados", canditadosAprovados)
+
+  const Aprovar = (id) => {
+    console.log(id)
+    DecideCandidate(idViagem, id)
+  }
+  
+  return (<div> 
+        <Container> 
+          <ContainerPreto>
           <div className='div-img-tela'>
 
-            <h1>  TripDetailsPage</h1>
+            <Titulo>
+            <h4> CONTROLE DE CANDIDATOS </h4>
+            </Titulo>
+
+            <CssButton>
             <button onClick={() => goToHomePage(navigate)}> HomePage </button>
             <button onClick={() => goToVoltar(navigate)}> voltar </button>
-            <button onClick={() => GetTripDetail(id, auth)} > ver detalhes </button>
-            <button onClick={() => CreateTrip(auth)} > Criar nova viagem </button>
+            </CssButton>
           </div>
 
-        </DivTripDetailsPage>
+          <CssButton>
+
+          <select
+              name="id"
+              onChange={onChangeId}
+              value={idViagem.id || ""}
+            >
+              <option> Escolha uma Viagem </option>
+              {tripsList.map((item) => {
+                return <option key={item.id} value={item.id}> {item.name}</option>;
+              })}
+            </select>
+            </CssButton>
+
+            <ContainerScroll>
+            <h4> Aprovar</h4>
+            {
+              canditados.map((item) => { return <ListCandidatos><h1> {item.name} <button onClick={() => Aprovar(item.id)}> Aprove </button></h1></ListCandidatos>})
+            }
+            </ContainerScroll>
+
+            <ContainerScroll>
+            <h4> Aprovados </h4>
+            {
+              canditadosAprovados.map((item) => { return <ListCandidatos><h1> {item.name}</h1></ListCandidatos>})
+            }
+
+            </ContainerScroll>
+
+
+            </ContainerPreto>
+        </Container>
+        <Footer></Footer>
+        </div>
   );
 }
 

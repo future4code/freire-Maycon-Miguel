@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {goToHomePage, goToVoltar} from '../../routes/coordinator';
-
+import Footer from '../../components/Footer';
 
 const DivErro = styled.div`
 
@@ -24,16 +24,18 @@ const ErrorPage = () => {
   
 
 
-  return (
+  return (<div>
         <DivErro> 
           <div className='div-img-tela'>
 
-            <h1>  A pagina não existe </h1>
+            <h4>  A pagina não existe </h4>
             <button onClick={() => goToHomePage(navigate)}> HomePage </button>
             <button onClick={() => goToVoltar(navigate)}> voltar </button>
             </div>
 
         </DivErro>
+          <Footer></Footer>
+        </div>
   );
 }
 
