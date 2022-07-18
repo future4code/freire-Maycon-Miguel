@@ -13,7 +13,7 @@ const ApplicationFormPage = () => {
   const country = require("../../json/paises-gentilicos-google-maps.json");
 
   const countryListAll = country.map((item) => {
-    return <option> {item.nome_pais} </option>;
+    return <option key={item.nome_pais} > {item.nome_pais} </option>;
   });
 
   const [tripsList, setTripsList] = useState([]);
@@ -55,8 +55,8 @@ const ApplicationFormPage = () => {
     alert("Formulario Enviado");
   };
 
-// console.log(formValues);
-// console.log(idViagem);
+console.log(formValues.country);
+console.log(idViagem);
 
   return (
     <div>

@@ -24,7 +24,7 @@ border: none;
 margin-left: 1vw;
 padding: 1.5vw;
 border-radius: 40px;
-font-size: 14px;
+font-size: medium;
 width: 10vw;
 
 cursor: pointer;  

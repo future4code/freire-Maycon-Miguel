@@ -18,7 +18,7 @@ const TripDetailsPage = () => {
 
   const GetTripDetail = (token, id) => {
 
-    console.log('O id esta chegando em ChamarGetTripDetail', id)
+    // console.log('O id esta chegando em ChamarGetTripDetail', id)
       axios
       .get(
         `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trip/${id}`,
@@ -33,7 +33,7 @@ const TripDetailsPage = () => {
         setCanditatosAprovados(response.data.trip.approved)
       })
       .catch((err) => {
-  
+
         console.log(err)
       });
       
@@ -58,12 +58,12 @@ const TripDetailsPage = () => {
   
   
 
-  console.log("canditados", canditados)
-  console.log("canditados Aprovados", canditadosAprovados)
+  // console.log("canditados", canditados)
+  // console.log("canditados Aprovados", canditadosAprovados)
 
   const Aprovar = (id) => {
     console.log(id)
-    DecideCandidate(idViagem, id)
+    DecideCandidate(idViagem.id, id)
   }
   
   return (<div> 
@@ -90,7 +90,7 @@ const TripDetailsPage = () => {
             >
               <option> Escolha uma Viagem </option>
               {tripsList.map((item) => {
-                return <option key={item.id} value={item.id}> {item.name}</option>;
+                return <option key={item.name} value={item.id}> {item.name}</option>;
               })}
             </select>
             </CssButton>
@@ -98,7 +98,7 @@ const TripDetailsPage = () => {
             <ContainerScroll>
             <h4> Aprovar</h4>
             {
-              canditados.map((item) => { return <ListCandidatos><h1> {item.name} <button onClick={() => Aprovar(item.id)}> Aprove </button></h1></ListCandidatos>})
+              canditados.map((item) => { return <ListCandidatos><h1> {item.name} <button onClick={() => DecideCandidate(idViagem.id, item.id, true)}> Aprove </button></h1></ListCandidatos>})
             }
             </ContainerScroll>
 

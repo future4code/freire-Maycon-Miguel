@@ -51,12 +51,9 @@ export const GetTripsCompleto = () => {
 
 export const ApplytoTrip = (body, id) => {
 
-  useEffect(() => {
-    console.log("id e body do formulario", id , body);
-
     axios
       .post(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon-/trips/${id}/apply`,body
+        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trips/${id}/apply`,body
       )
       .then((response) => {
         console.log(response);
@@ -64,49 +61,13 @@ export const ApplytoTrip = (body, id) => {
       .catch((err) => {
         console.log(err);
       });
-  },[])
 
 };
 
-// Funcionando  detalhes de viagem na parte do admin
-// export const GetTripDetail = (token, id) => {
-
-//   console.log('O id esta chegando em ChamarGetTripDetail', id)
-//     axios
-//     .get(
-//       `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trip/${id}`,
-//       {
-//         headers: {
-//           auth: token,
-//         },
-//       }
-//     )
-//     .then((response) => {
-//       console.log(response)
-//     })
-//     .catch((err) => {
-//       console.log('Estou chegando no erro')
-//       console.log(err)
-//     });
-    
-// };
-
 // funcionando
 export const CreateTrip = (body) => {
-  // o body vai entra com formulario
 
   const token = window.localStorage.getItem("token")
-
-  console.log(body)
-  // const body = {
-
-  //   name: "Ano novo em Mercúrio",
-  //   planet: "Mercúrio",
-  //   date: "31/12/2019",
-  //   description: "Venha passar a virada pertinho do Sol!",
-  //   durationInDays: 7
-  // }
-  
   axios
     .post(
       "https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trips",
@@ -158,9 +119,7 @@ export const Login = (email, password) => {
       }
     )
     .then((response) => {
-      console.log("foi")
       window.localStorage.setItem("token", response.data.token)
-
     })
     .catch((err) => {
       alert("senha errada")
@@ -168,16 +127,22 @@ export const Login = (email, password) => {
     });
 };
 
-export const DecideCandidate = (tripId,candidateId) => {
+export const DecideCandidate = (tripId,candidateId, boolean) => {
 
-  const token = window.localStorage.getItem("token")
+
+  console.log('chegando para aprovar', tripId,candidateId, boolean)
+
+  const body = {
+      approve: boolean
+  }
 
   axios
     .put(
-      `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trips/${tripId}/candidates/${candidateId}/decide`,
-      {auth: token}
-    )
+      `https://us-central1-labenu-apis.cloudfunctions.net/labeX/maycon/trips/${tripId}/candidates/${candidateId}/decide`,body,{
+      headers: window.localStorage.getItem("token")
+      })
     .then((response) => {
+      alert('aprovado')
       console.log(response)
     
     })
