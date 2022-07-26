@@ -1,8 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { goToCadastroPage, goToFeedPage, goToLoginPage, goToPostPage } from "../../routes/coordinator";
-
-
+import { Button } from '@chakra-ui/react'
 
   const HomePage = () => {
 
@@ -13,10 +12,10 @@ import { goToCadastroPage, goToFeedPage, goToLoginPage, goToPostPage } from "../
  
     <div>
       <h1> Home </h1> 
-      <button onClick={() => goToCadastroPage(navigate)}> Cadastro </button>
-      <button onClick={() => goToFeedPage(navigate)}> Feed </button>
-      <button onClick={() => goToLoginPage(navigate)}> Login </button>
-      <button onClick={() => goToPostPage(navigate)}> Post </button>
+        <Button colorScheme='teal' variant='solid' onClick={() => goToCadastroPage(navigate)}> Cadastro </Button>
+        <Button colorScheme='teal' variant='solid' onClick={() => goToFeedPage(navigate)}> Feed </Button>
+        <Button colorScheme='teal' variant='solid' onClick={() => goToLoginPage(navigate)}> Login </Button>
+        <Button colorScheme='teal' variant='solid' onClick={() => goToPostPage(navigate)}> Post </Button>
     </div>
 
   );
