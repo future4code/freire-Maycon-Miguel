@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { goToVoltar } from '../../routes/coordinator';
+import { goToVoltar, goToCadastroPage } from '../../routes/coordinator';
 import {
   Flex,
   Box,
@@ -9,58 +9,77 @@ import {
   Input,
   FormLabel,
   HStack,
-  RadioGroup,
-  Radio,
-  Button,
+  Button
 } from "@chakra-ui/react";
+import { useForm } from '../../hooks/useForm';
 
 const LoginPage = () => {
 
   const navigate = useNavigate()
 
+  const {formValues, onChange, cleanFields} = useForm({
+    email: "",
+    password: "",})
+
+
+  const FazerLogin = (event) => {
+
+    event.preventDefault()
+    console.log(formValues)
+    cleanFields()
+  }
+
+
+
   return (
-
-
     <Box h="100vh">
       <Center
         as="header"
-        h={150}
         bg="#fc9936"
         color="white"
         fontWeight="bold"
         fontSize="4xl"
-        pb="8"
+        pb="2"
+        boxShadow="0 2px 2px #ccc"
       >
         Login
       </Center>
       <Flex
         align="center"
         justify="center"
-        bg="blackAlpha.200"
-        h="calc(100vh - 150px)"
       >
         <Center
           w="100%"
-          maxW={840}
+          height={250}
           bg="white"
-          top={100}
+          top={110}
           position="absolute"
-          borderRadius={5}
           p="6"
-          boxShadow="0 1px 2px #ccc"
         >
+        <form onSubmit={FazerLogin}>
           <FormControl display="flex" flexDir="column" gap="4">
             <Box w="100%">
-              <FormLabel htmlFor="email">E-mail</FormLabel>
-              <Input id="email" type="email" />
+              <FormLabel htmlFor="email" >E-mail</FormLabel>
+              <Input 
+                  w={300}
+                  name='email'
+                  type="email"
+                  value={formValues.email || ''}
+                  placeholder="E-mail"
+                  onChange={onChange} />
             </Box>
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="password"> Senha </FormLabel>
-                <Input id="password" />
+                <Input 
+                  name='password'
+                  type='password'
+                  value={formValues.password || ''}
+                  placeholder="password"
+                  onChange={onChange}/>
               </Box>
             </HStack>
-            <HStack justify="center">
+            <HStack spacing="4" justify="center">
               <Button
                 w={240}
                 p="6"
@@ -75,26 +94,17 @@ const LoginPage = () => {
                 Entrar
               </Button>
             </HStack>
-          </FormControl>
-          
-          <HStack>
-          <Button
-                w={240}
-                p="6"
-                type="submit"
-                bg="#ffb56c"
-                color="white"
-                fontWeight="bold"
-                fontSize="xl"
-                mt="2"
-                _hover={{ bg: "#fd7f00" }}
-              >
-                Criar conta
-              </Button>
-      </HStack>
-          
+          </FormControl> 
+          </form>
         </Center>
-
+  
+        <Center
+          w="100%"
+          maxW={840}
+          top={350}
+          position="absolute"
+          p="6"
+        >
         <Button
                 w={240}
                 p="6"
@@ -105,14 +115,11 @@ const LoginPage = () => {
                 fontSize="xl"
                 mt="2"
                 _hover={{ bg: "#fd7f00" }}
+                onClick={() => goToCadastroPage(navigate)}
               >
                 Criar conta
               </Button>
-        <Button
-        colorScheme='teal'
-        variant='solid'
-        onClick={() => goToVoltar(navigate)}
-      > Voltar </Button>
+            </Center>
       </Flex>
     </Box>
   );
