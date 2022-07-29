@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { goToVoltar, goToCadastroPage } from '../../routes/coordinator';
 import {
@@ -12,8 +11,12 @@ import {
   Button
 } from "@chakra-ui/react";
 import { useForm } from '../../hooks/useForm';
+import { Login } from '../../hooks/axios';
+import { LoginToken } from '../../components/Token/Token';
 
 const LoginPage = () => {
+
+  LoginToken()
 
   const navigate = useNavigate()
 
@@ -25,11 +28,9 @@ const LoginPage = () => {
   const FazerLogin = (event) => {
 
     event.preventDefault()
-    console.log(formValues)
+    Login(formValues.email, formValues.password)
     cleanFields()
   }
-
-
 
   return (
     <Box h="100vh">

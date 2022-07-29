@@ -11,14 +11,20 @@ import {
   Button,
   Textarea,
   Text,
-  CloseButton
+  CloseButton,
+  Spinner
 } from "@chakra-ui/react";
 import { useForm } from '../../hooks/useForm';
-
+import { ConfirmandoToken } from '../../components/Token/TokenConfirme';
+import { GetPostComments } from '../../hooks/axios';
+import { CreateComment } from '../../hooks/axios';
 
 
 const PostPage = () => {
 
+  ConfirmandoToken()
+
+  // const todasPostagens = GetPostComments()
 
   const navigate = useNavigate()
 
@@ -31,7 +37,7 @@ const PostPage = () => {
   const Postar = (event) => {
 
     event.preventDefault()
-    console.log(formValues)
+    CreateComment(formValues)
     cleanFields()
   }
 
@@ -47,17 +53,17 @@ const PostPage = () => {
         boxShadow="0 2px 2px #ccc"
       >
         Postar
-        <CloseButton 
-        position='absolute'  
-        left='80vw' 
-        onClick={() => goToVoltar(navigate)} 
-        size='lg'
-        bg='#ff000090'
-        _hover={{ bg: "#be0808" }}
+        <CloseButton
+          position='absolute'
+          left='80vw'
+          onClick={() => goToVoltar(navigate)}
+          size='lg'
+          bg='#ff000090'
+          _hover={{ bg: "#be0808" }}
         />
 
       </Center>
-          
+
       <Flex
         align="center"
         justify="center"
@@ -70,31 +76,19 @@ const PostPage = () => {
           position="absolute"
           p="6"
         >
-          
+
+
           <form onSubmit={Postar}>
             <FormControl display="flex" flexDir="column" gap="4">
-              <Box w="100%">
 
-            <HStack display="flex" flexDir="column" gap="4">
-              <Box w="100%">
-                <Text mb='10px'> Nome da pessoa</Text>
-                <Textarea
-                  value={'Texto da postagem em map'}
-                  size='sm'
-                  w={340}
-                  h={100}
-                  pointerEvents='none'
-                />
-              </Box>
-            </HStack>
-              </Box>
-              <HStack spacing="4">
+
+            <HStack spacing="4">
                 <Box w="100%">
                   <Textarea
                     name='comentario'
                     value={formValues.comentario || ''}
                     onChange={onChange}
-                    placeholder='Adicionar comentario'
+                    placeholder='Escreva seu Post...'
                   />
                 </Box>
               </HStack>
@@ -124,18 +118,29 @@ const PostPage = () => {
             position="absolute"
             p="6"
           >
-            <HStack display="flex" flexDir="column" gap="4">
-              <Box w="100%">
-                <Text mb='10px'> Nome da pessoa</Text>
-                <Textarea
-                  value={'Texto da postagem em map'}
-                  size='sm'
-                  w={340}
-                  h={100}
-                  pointerEvents='none'
-                />
-              </Box>
-            </HStack>
+                      <HStack display="flex" flexDir="column" gap="4">
+            <Box w="100%">
+              {/* {todasPostagens.length > 0 ? (todasPostagens && todasPostagens?.map((item) =>
+                <Text
+                  marginTop='3vw'
+                  bg='#f5c8845e'
+                  paddingTop='1vw'
+                  paddingLeft='2vw'
+                  borderRadius='1vw'
+                  noOfLines={3}
+                  minHeight='20vw'
+                  minWidth='40vw'
+                  maxWidth='90vw'
+                  maxHeight='35vw'
+                >
+                  <Text
+                  > Enviado por: {item.username} </Text>
+                  {item.body}
+                </Text>
+              )) : (<Spinner color='#fd7f00' size='xl' />)} */}
+
+            </Box>
+          </HStack>
           </Center>
         </Center>
       </Flex>

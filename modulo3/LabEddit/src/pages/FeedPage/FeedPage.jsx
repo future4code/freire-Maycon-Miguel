@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { goToVoltar } from '../../routes/coordinator';
+import { goToPostPage } from '../../routes/coordinator';
 import {
   Flex,
   Box,
@@ -11,17 +11,40 @@ import {
   HStack,
   Button,
   Textarea,
-  Text
+  Text,
+  Spinner
 } from "@chakra-ui/react";
 import { useForm } from '../../hooks/useForm';
+import { ConfirmandoToken } from '../../components/Token/TokenConfirme';
+import { GetPost } from '../../hooks/axios';
+import { CreatePost } from '../../hooks/axios';
+
+
 
 const FeedPage = () => {
 
+  ConfirmandoToken()
+
   const navigate = useNavigate()
+
+  const todasPostagens = GetPost()
+
+  const idPost = (id) => {
+
+    window.localStorage.removeItem('IdPost')
+    window.localStorage.setItem("IdPost", id)
+    goToPostPage(navigate)
+  
+  }
+
+  const SairDaConta = () => {
+    window.localStorage.removeItem('token')
+
+  }
 
   const { formValues, onChange, cleanFields } = useForm({
     title: "",
-    textoPost: "",
+    comentario: "",
   })
 
 
@@ -29,6 +52,7 @@ const FeedPage = () => {
 
     event.preventDefault()
     console.log(formValues)
+    CreatePost(formValues)
     cleanFields()
   }
 
@@ -49,8 +73,8 @@ const FeedPage = () => {
           left={20}
           colorScheme='teal'
           variant='solid'
-          onClick={() => goToVoltar(navigate)}
-        > Voltar </Button>
+          onClick={() => SairDaConta()}
+        > Sair da conta </Button>
       </Center>
       <Flex
         align="center"
@@ -78,8 +102,8 @@ const FeedPage = () => {
               <HStack spacing="4">
                 <Box w="100%">
                   <Textarea
-                    name='textoPost'
-                    value={formValues.textoPost || ''}
+                    name='comentario'
+                    value={formValues.comentario || ''}
                     onChange={onChange}
                     placeholder='Escreva seu Post...'
                   />
@@ -113,14 +137,30 @@ const FeedPage = () => {
           >
             <HStack display="flex" flexDir="column" gap="4">
               <Box w="100%">
-                <Text mb='10px'> Nome da pessoa</Text>
-                <Textarea
-                  value={'Texto da postagem em map'}
-                  size='sm'
-                  w={340}
-                  h={100}
-                  pointerEvents='none'
-                />
+
+              {todasPostagens.length > 0 ? (todasPostagens && todasPostagens?.map((item) => 
+              
+              
+              <Text onClick={() => idPost(item.id)}
+              marginTop='3vw'
+              bg='#f5c8845e'
+              paddingTop='1vw'
+              paddingLeft='2vw'
+              borderRadius='1vw'
+              noOfLines={3}
+              minHeight= '20vw'
+              minWidth='40vw'
+              maxWidth='90vw'
+              maxHeight='35vw'
+              cursor='pointer'
+              >
+              <Text 
+              > Enviado por: {item.username} </Text>
+              Titulo : {item.title}
+              {item.body}
+            </Text>  
+             )) : (<Spinner color='#fd7f00' size='xl'/>) }
+
               </Box>
             </HStack>
           </Center>

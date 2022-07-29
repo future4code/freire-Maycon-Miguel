@@ -12,10 +12,12 @@ import {
   Button
 } from "@chakra-ui/react";
 import { useForm } from '../../hooks/useForm';
+import { LoginToken } from '../../components/Token/Token';
 
 
 const CadastroPage = () => {
 
+  LoginToken()
 
   const navigate = useNavigate()
 
