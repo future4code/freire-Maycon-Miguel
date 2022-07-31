@@ -2,39 +2,40 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../components/URL/BASE_URL";
 
-
 export const Login = (email, password) => {
 
-    axios
-      .post(
-        `${BASE_URL}/users/login`,
-        {
-          email: email,
-          password: password,
-        }
-      )
-      .then((response) => {
-        window.localStorage.setItem("token", response.data.token)
-        
-      })
-      .catch((err) => {
-        alert("senha errada")
-        console.log(err);
-      });
-  };
+  axios
+    .post(
+      `${BASE_URL}/users/login`,
+      {
+        email: email,
+        password: password,
+      }
+    )
+    .then((response) => {
+      window.localStorage.setItem("token", response.data.token)
+      alert('Logado com sucesso, Atualize a apagina para ir para o Feed')
+    })
+    .catch((err) => {
+      alert('Senha errada!')
+    });
 
-  export const GetPost = (paginaAtual) => {
+};
 
-    const token = window.localStorage.getItem("token")
+export const GetPost = (paginaAtual) => {
 
-    const [getTripsList, setGetTripsList]  = useState([])
 
-    useEffect(() => {
+
+  const token = window.localStorage.getItem("token")
+
+  const [getTripsList, setGetTripsList] = useState([])
+
+  useEffect(() => {
 
     axios
       .get(
-        `${BASE_URL}/posts?page=${paginaAtual}&size=${8}`,{headers : {Authorization: token}}
-        )
+        `${BASE_URL}/posts?page=${paginaAtual}&size=${8}`, { headers: { Authorization: token } }
+      )
       .then((response) => {
         setGetTripsList(response.data)
       })
@@ -42,7 +43,7 @@ export const Login = (email, password) => {
         console.log(err);
       });
 
-    },[paginaAtual] )
+  }, [paginaAtual])
 
   return getTripsList
 
@@ -52,44 +53,44 @@ export const GetPostComments = () => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
 
-  const [getTripsList, setGetTripsList]  = useState([])
+  const [getTripsList, setGetTripsList] = useState([])
 
   useEffect(() => {
 
-  axios
-    .get(
-      `${BASE_URL}/posts/${id}/comments`,{headers : {Authorization: token}}
+    axios
+      .get(
+        `${BASE_URL}/posts/${id}/comments`, { headers: { Authorization: token } }
       )
-    .then((response) => {
-      setGetTripsList(response.data)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((response) => {
+        setGetTripsList(response.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-  },[] )
+  }, [])
 
-return getTripsList
+  return getTripsList
 
 }
 
 
-export const CreatePost = (title,comentario) => {
+export const CreatePost = (title, comentario) => {
 
   const token = window.localStorage.getItem("token")
 
   const body = {
-    title:  title,
+    title: title,
     body: comentario,
   };
 
   axios
     .post(
-      `${BASE_URL}/posts`,body,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/posts`, body, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
     })
@@ -105,7 +106,7 @@ export const CreateComment = (dados) => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
   const body = {
     body: dados.comentario
@@ -113,8 +114,8 @@ export const CreateComment = (dados) => {
 
   axios
     .post(
-      `${BASE_URL}/posts/${id}/comments`,body,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/posts/${id}/comments`, body, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
     })
@@ -129,16 +130,16 @@ export const CreatePostVote = () => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
   const body = {
     direction: 1
   };
-  
+
   axios
     .post(
-      `${BASE_URL}/posts/${id}/votes`,body,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/posts/${id}/votes`, body, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
     })
@@ -155,7 +156,7 @@ export const ChangePostVote = () => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
   const body = {
     direction: -1
@@ -163,8 +164,8 @@ export const ChangePostVote = () => {
 
   axios
     .put(
-      `${BASE_URL}/posts/${id}/votes`,body,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/posts/${id}/votes`, body, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
 
@@ -180,16 +181,16 @@ export const CreateCommentVote = () => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
   const body = {
     direction: 1
   };
-  
+
   axios
     .post(
-      `${BASE_URL}/comments/${id}/votes`,body,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/comments/${id}/votes`, body, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
     })
@@ -205,7 +206,7 @@ export const ChangeCommentVote = () => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
   const body = {
     direction: -1
@@ -213,8 +214,8 @@ export const ChangeCommentVote = () => {
 
   axios
     .put(
-      `${BASE_URL}/comments/${id}/votes`,body,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/comments/${id}/votes`, body, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
 
@@ -231,12 +232,12 @@ export const DeletePostVote = () => {
 
   const token = window.localStorage.getItem("token")
 
-  const id =  window.localStorage.getItem("IdPost")
+  const id = window.localStorage.getItem("IdPost")
 
   axios
     .delete(
-      `${BASE_URL}/comments/${id}/votes`,{headers : {Authorization: token}}
-      )
+      `${BASE_URL}/posts/${id}/votes`, { headers: { Authorization: token } }
+    )
     .then((response) => {
       console.log(response)
 
