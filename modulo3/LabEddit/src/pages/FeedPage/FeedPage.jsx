@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { goToPostPage } from '../../routes/coordinator';
 import {
@@ -12,14 +12,13 @@ import {
   Button,
   Textarea,
   Text,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react";
+
 import { useForm } from '../../hooks/useForm';
 import { ConfirmandoToken } from '../../components/Token/TokenConfirme';
-import { GetPost } from '../../hooks/axios';
-import { CreatePost } from '../../hooks/axios';
-
-
+import { GetPost, CreatePost, CreatePostVote, ChangePostVote, DeletePostVote } from '../../hooks/axios';
+import { ChatIcon, ChevronUpIcon, ChevronDownIcon, RepeatIcon } from '@chakra-ui/icons'
 
 const FeedPage = () => {
 
@@ -27,15 +26,48 @@ const FeedPage = () => {
 
   const navigate = useNavigate()
 
-  const todasPostagens = GetPost()
+  const [paginaAtual, setPaginaAtual] = useState(1)
+
+  if (paginaAtual < 1) {
+    setPaginaAtual(1)
+  }
+
+  const todasPostagens = GetPost(paginaAtual)
+
 
   const idPost = (id) => {
 
     window.localStorage.removeItem('IdPost')
     window.localStorage.setItem("IdPost", id)
     goToPostPage(navigate)
-  
+
   }
+
+  const VotarPost = (id) => {
+
+    window.localStorage.removeItem('IdPost')
+    window.localStorage.setItem("IdPost", id)
+    CreatePostVote()
+  }
+
+  const VotarPut = (id) => {
+
+    window.localStorage.removeItem('IdPost')
+    window.localStorage.setItem("IdPost", id)
+    ChangePostVote()
+
+  }
+
+  const TiraVoto = (id) => {
+
+    window.localStorage.removeItem('IdPost')
+    window.localStorage.setItem("IdPost", id)
+    DeletePostVote()
+
+  }
+
+
+
 
   const SairDaConta = () => {
     window.localStorage.removeItem('token')
@@ -51,8 +83,7 @@ const FeedPage = () => {
   const Postar = (event) => {
 
     event.preventDefault()
-    console.log(formValues)
-    CreatePost(formValues)
+    CreatePost(formValues.title, formValues.comentario)
     cleanFields()
   }
 
@@ -74,7 +105,7 @@ const FeedPage = () => {
           colorScheme='teal'
           variant='solid'
           onClick={() => SairDaConta()}
-        > Sair da conta </Button>
+        > Sair </Button>
       </Center>
       <Flex
         align="center"
@@ -114,13 +145,12 @@ const FeedPage = () => {
                   w={240}
                   p="6"
                   type="submit"
-                  bg="#ffb56c"
+                  bg="linear-gradient(90deg, #FF6489 0%, #F9B24E 100%)"
                   color="white"
                   fontWeight="bold"
                   fontSize="xl"
                   mt="2"
-                  borderRadius={100}
-                  _hover={{ bg: "#fd7f00" }}
+                  borderRadius={10}
                 >
                   Postar
                 </Button>
@@ -138,28 +168,82 @@ const FeedPage = () => {
             <HStack display="flex" flexDir="column" gap="4">
               <Box w="100%">
 
-              {todasPostagens.length > 0 ? (todasPostagens && todasPostagens?.map((item) => 
-              
-              
-              <Text onClick={() => idPost(item.id)}
-              marginTop='3vw'
-              bg='#f5c8845e'
-              paddingTop='1vw'
-              paddingLeft='2vw'
-              borderRadius='1vw'
-              noOfLines={3}
-              minHeight= '20vw'
-              minWidth='40vw'
-              maxWidth='90vw'
-              maxHeight='35vw'
-              cursor='pointer'
-              >
-              <Text 
-              > Enviado por: {item.username} </Text>
-              Titulo : {item.title}
-              {item.body}
-            </Text>  
-             )) : (<Spinner color='#fd7f00' size='xl'/>) }
+                <HStack spacing="4" justify="center" marginBottom='8vw'>
+                  <Box>
+                    <Text>
+                      <Button onClick={() => setPaginaAtual(paginaAtual - 1)}> -1 </Button>
+                      ⠀⠀{paginaAtual}⠀⠀
+                      <Button onClick={() => setPaginaAtual(paginaAtual + 1)} > +1 </Button>
+                    </Text>
+                  </Box>
+                </HStack>
+
+                {todasPostagens.length > 0 ? (todasPostagens && todasPostagens?.map((item) =>
+
+                  <>
+
+                    <Text
+                      marginTop='3vw'
+                      bg='#e9e9e9'
+                      paddingTop='1vw'
+                      paddingLeft='2vw'
+                      borderRadius='1vw'
+                      noOfLines={3}
+                      minHeight='20vw'
+                      minWidth='40vw'
+                      maxWidth='90vw'
+                      maxHeight='35vw'
+                    >
+                      <Text
+                     fontSize='xs'
+                     color='#585858'
+                     marginBottom='3vw'
+                      > Enviado por: {item.username} </Text>
+                      <Text> Titulo : {item.title}
+                        {item.body}</Text>
+                    </Text>
+
+                    <HStack justify="center" bg='#e9e9e9' paddingTop='5vw' >
+                      <Box marginLeft='30vw'>
+                        <ChevronUpIcon
+                          cursor='pointer'
+                          onClick={() => VotarPost(item.id)}
+                          color='#47c200'
+                          _hover={{ color: "#488624" }}
+                          w={10} h={8} />
+                        {item.voteSum || 0}
+                        <ChevronDownIcon
+                          cursor='pointer'
+                          onClick={() => VotarPut(item.id)}
+                          color='#c70000'
+                          _hover={{ color: "#810101" }}
+                          w={10} h={8} />
+                        <RepeatIcon
+                          cursor='pointer'
+                          onClick={() => TiraVoto(item.id)}
+                          color='#9c9a00'
+                          _hover={{ color: "#9c9a10" }}
+                          w={8} h={4} />
+                      </Box>
+
+                      <Box paddingRight='10vw'>
+                        <Text><ChatIcon
+                          cursor='pointer'
+                          onClick={() => idPost(item.id)} /> {item.commentCount || 0} </Text>
+                      </Box>
+                    </HStack>
+
+                  </>
+                )) : (<Spinner color='#fd7f00' size='xl' />)}
+                <HStack spacing="4" justify="center" marginTop='8vw'>
+                  <Box>
+                    <Text>
+                      <Button onClick={() => setPaginaAtual(paginaAtual - 1)}> -1 </Button>
+                      ⠀⠀{paginaAtual}⠀⠀ 
+                      <Button onClick={() => setPaginaAtual(paginaAtual + 1)} > +1 </Button>
+                    </Text>
+                  </Box>
+                </HStack>
 
               </Box>
             </HStack>

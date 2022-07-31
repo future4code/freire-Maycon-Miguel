@@ -8,14 +8,14 @@ export const ConfirmandoToken = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const token = window.localStorage.getItem('token')
 
-    const token = window.localStorage.getItem('token')
+  useEffect(() => {
 
     if(token === null){
         goToLoginPage(navigate)
     } 
 
-  },[])
+  },[token])
 
 }

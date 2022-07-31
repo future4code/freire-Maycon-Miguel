@@ -14,7 +14,6 @@ import {
 import { useForm } from '../../hooks/useForm';
 import { LoginToken } from '../../components/Token/Token';
 
-
 const CadastroPage = () => {
 
   LoginToken()
@@ -106,7 +105,8 @@ const CadastroPage = () => {
                   w={240}
                   p="6"
                   type="submit"
-                  bg="#ffb56c"
+                  bg="linear-gradient(90deg, #FF6489 0%, #F9B24E 100%)"
+                  borderRadius={50}
                   color="white"
                   fontWeight="bold"
                   fontSize="xl"

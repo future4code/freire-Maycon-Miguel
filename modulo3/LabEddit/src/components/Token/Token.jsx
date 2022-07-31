@@ -11,11 +11,10 @@ export const LoginToken = () => {
 
   useEffect(() => {
 
-
     if(token != null){
         goToFeedPage(navigate)
     } 
 
-  },[])
+  },[token])
 
 } 

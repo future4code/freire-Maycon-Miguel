@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { goToVoltar, goToCadastroPage } from '../../routes/coordinator';
+import { goToCadastroPage } from '../../routes/coordinator';
 import {
   Flex,
   Box,
@@ -8,7 +8,8 @@ import {
   Input,
   FormLabel,
   HStack,
-  Button
+  Button,
+  Divider
 } from "@chakra-ui/react";
 import { useForm } from '../../hooks/useForm';
 import { Login } from '../../hooks/axios';
@@ -85,16 +86,19 @@ const LoginPage = () => {
                 w={240}
                 p="6"
                 type="submit"
-                bg="#ffb56c"
+                bg="linear-gradient(90deg, #FF6489 0%, #F9B24E 100%)"
+                borderRadius={50}
                 color="white"
                 fontWeight="bold"
                 fontSize="xl"
                 mt="2"
-                _hover={{ bg: "#fd7f00" }}
+                marginTop={5}
               >
                 Entrar
               </Button>
             </HStack>
+            <Divider orientation='horizontal' />
+
           </FormControl> 
           </form>
         </Center>
@@ -110,12 +114,15 @@ const LoginPage = () => {
                 w={240}
                 p="6"
                 type="submit"
-                bg="#ffb56c"
-                color="white"
+                bg="#ffffff0"
+                color="#FE7E02"
                 fontWeight="bold"
                 fontSize="xl"
                 mt="2"
-                _hover={{ bg: "#fd7f00" }}
+                borderRadius={50}
+                borderColor= "#FE7E02"
+                colorScheme='teal' 
+                variant='outline'
                 onClick={() => goToCadastroPage(navigate)}
               >
                 Criar conta

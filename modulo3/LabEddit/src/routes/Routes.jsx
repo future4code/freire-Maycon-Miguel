@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from '../pages/HomePage/HomePage.jsx'
 import ErrorPage from "../pages/ErrorPage/ErrorPage.jsx";
 import CadastroPage from "../pages/CadastroPage/CadastroPage.jsx";
 import FeedPage from "../pages/FeedPage/FeedPage.jsx";
@@ -11,7 +10,7 @@ export const Router = () => {
     return(
         <BrowserRouter>
         <Routes>
-            <Route index element = {<HomePage/>} />
+            <Route index element = {<LoginPage/>} />
             <Route path= "*" element = {<ErrorPage/>} />
             <Route path= "CadastroPage" element = {<CadastroPage/>} />
             <Route path= "FeedPage" element = {<FeedPage/>} />
