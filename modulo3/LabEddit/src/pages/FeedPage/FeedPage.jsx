@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { goToFeedPage, goToLoginPage, goToPostPage } from '../../routes/coordinator';
+import { goToLoginPage, goToPostPage } from '../../routes/coordinator';
 import {
   Flex,
   Box,
@@ -30,7 +30,6 @@ const FeedPage = () => {
   const navigate = useNavigate()
 
   const [paginaAtual, setPaginaAtual] = useState(1)
-  const [voto, setVoto] = useState(0)
 
   if (paginaAtual < 1) {
     setPaginaAtual(1)
@@ -60,7 +59,6 @@ const FeedPage = () => {
     window.localStorage.removeItem('IdPost')
     window.localStorage.setItem("IdPost", id)
     ChangePostVote()
-
 
   }
 

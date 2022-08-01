@@ -18,7 +18,7 @@ import { LoginToken } from '../../components/Token/Token';
 import Logo from '../../assets/logo.png'
 
 const LoginPage = () => {
-
+  
   LoginToken()
 
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   const FazerLogin = (event) => {
     event.preventDefault()
-    Login(formValues.email, formValues.password)
+    Login(formValues.email, formValues.password , navigate)
   
   }
 
@@ -41,8 +41,7 @@ const LoginPage = () => {
         align="center"
         justify="center"
       >
-        <HStack spacing="4" justify="center" marginTop='20vw' display="flex" flexDir="column" >
-
+        <HStack spacing="4" justify="center" marginTop='5vw' display="flex" flexDir="column" >
           <Box>
             <Center >
               <Image boxSize='75px' src={Logo} alt='Dan Abramov' />
@@ -62,13 +61,13 @@ const LoginPage = () => {
 
         <Center
           w="100%"
-          height={250}
-          top={110}
+          height={330}
+          top={280}
           position="absolute"
           p="6"
         >
           <form onSubmit={FazerLogin}>
-            <FormControl display="flex" flexDir="column" gap="4" marginTop='90vw'>
+            <FormControl display="flex" flexDir="column" gap="4">
               <Box w="100%">
                 <Input
                   w={300}
@@ -106,21 +105,18 @@ const LoginPage = () => {
                   Continuar
                 </Button>
               </HStack>
+              
               <Divider orientation='horizontal' marginTop='2vw' padding={.499} bg='linear-gradient(90deg, #ff003c 0%, #ff9500 100%)' />
-
-            </FormControl>
-          </form>
-        </Center>
-
-        <Center
+              <Center
           w="100%"
           maxW={840}
-          top={510}
+          top={220}
           position="absolute"
           p="6"
         >
           <Button
             w={300}
+            minW={300}
             p="6"
             type="submit"
             bg="#ffffff0"
@@ -137,6 +133,10 @@ const LoginPage = () => {
             Crie um conta!
           </Button>
         </Center>
+            </FormControl>
+          </form>
+        </Center>
+
       </Flex>
     </Box>
   );

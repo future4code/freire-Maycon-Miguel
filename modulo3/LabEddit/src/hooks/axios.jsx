@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../components/URL/BASE_URL";
+import { goToFeedPage } from "../routes/coordinator";
 
-export const Login = (email, password) => {
+
+export const Login = (email, password, navigate) => {
 
   axios
     .post(
@@ -14,7 +16,8 @@ export const Login = (email, password) => {
     )
     .then((response) => {
       window.localStorage.setItem("token", response.data.token)
-      alert('Logado com sucesso, Atualize a apagina para ir para o Feed')
+      goToFeedPage(navigate)
+
     })
     .catch((err) => {
       alert('Senha errada!')
@@ -142,6 +145,7 @@ export const CreatePostVote = () => {
     )
     .then((response) => {
       console.log(response)
+
     })
     .catch((err) => {
       console.log(err);

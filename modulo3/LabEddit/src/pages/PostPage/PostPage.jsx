@@ -18,10 +18,8 @@ import {
 import { useForm } from '../../hooks/useForm';
 import { ConfirmandoToken } from '../../components/Token/TokenConfirme';
 import { GetPostComments, CreateComment, CreateCommentVote, ChangeCommentVote } from '../../hooks/axios';
-import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronUpIcon, ChevronDownIcon, ArrowLeftIcon } from '@chakra-ui/icons'
 import Logo from '../../assets/logo.png'
-
-
 
 const PostPage = () => {
 
@@ -75,7 +73,14 @@ const PostPage = () => {
         boxShadow="0 2px 2px #ccc"
       >
         <Center >
-          <Image paddingTop={1.5} marginLeft={20} boxSize='40px' src={Logo} alt='Dan Abramov' />
+          <Image 
+          onClick={() => goToFeedPage(navigate)} 
+          cursor='pointer'  
+          paddingTop={1.5} marginLeft={20} 
+          boxSize='40px' 
+          src={Logo} alt='Dan Abramov' />
+          
+
           <Button
             left={55}
             color='#4088CB'
@@ -88,13 +93,13 @@ const PostPage = () => {
           > Logout </Button>
 
         </Center>
-        <CloseButton
+        <ArrowLeftIcon
           position='absolute'
           left='8'
-          color='#686868'
+          color='#022444'
           onClick={() => goToFeedPage(navigate)}
           size='lg'
-          _hover={{ color: "#b10000" }}
+          _hover={{ color: "#4088CB" }}
         />
 
       </Center>
