@@ -1,0 +1,11 @@
+{
+  "name": "aula-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsc && node ./build/index.ts"
+  },
+  "author": "Maycon Coutinho",
+  "license": "ISC"
+}
