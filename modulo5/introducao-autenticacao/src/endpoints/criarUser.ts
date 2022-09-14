@@ -4,6 +4,7 @@ import {TypeUser} from "../types/user";
 import { geraId } from "../services/geraId";
 
 export const criaUser = async (req: Request, res: Response) => {
+    console.log('chegou em criarUser')
     try {
         const {email,password } = req.body
 
