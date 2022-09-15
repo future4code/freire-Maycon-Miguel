@@ -1,5 +1,5 @@
-import { AddressInfo } from "net";
 import app from "./app";
+import { AddressInfo } from "net";
 import { criaUser } from "./endpoints/criarUser";
 import { geraId } from "./services/geraId";
 
